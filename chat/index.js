@@ -17,6 +17,21 @@ export default function Chat() {
   const [teste, setTeste] = useState('')
 
 
+  firebase.database().ref('users/' + userId).set({
+    username: name,
+    email: email,
+    profile_picture : imageUrl
+  }, function(error) {
+    if (error) {
+      // The write failed...
+    } else {
+      // Data saved successfully!
+    }
+  });
+}
+
+
+
   const db = firebase.firestore()
   let mensagens_enviadas = []
   const salvar = () => {
@@ -54,6 +69,9 @@ export default function Chat() {
       unsubscribe()
     }
   }, [])
+
+
+  
 
   const carregaUsuarioAnonimo = () => {
     axios.get('https://randomuser.me/api/')
